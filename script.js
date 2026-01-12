@@ -75,8 +75,7 @@ const toDurationMins = document.getElementById('to-duration-mins');
  * Format location for dropdown display
  */
 function formatLocationOption(loc) {
-    const sideLabel = loc.side === 'RR' ? 'River Right' : 'River Left';
-    return `${loc.name} — RM ${loc.rm} (${sideLabel})`;
+    return `${loc.name} — ${loc.rm} (${loc.side})`;
 }
 
 /**
@@ -308,16 +307,30 @@ function calculateArrivalFromMode(fromDateTime, distance, mode) {
 /**
  * Set default From values (closest Tuesday at 8 AM)
  */
-function setDefaultFromValues() {
+function setDefaultValues() {
     // Only set defaults if no saved data
     const saved = localStorage.getItem('mr340-calculator');
     if (saved) return;
     
+    // Default locations: Kaw Point to St. Charles
+    fromSelect.value = '367.5';  // Kaw Point
+    toSelect.value = '28.8';     // St. Charles
+    
+    // Default date/time: closest Tuesday at 8 AM
     const tuesday = getClosestTuesday();
     fromDate.value = formatDateForInput(tuesday);
     fromHour.value = '8';
     fromMinute.value = '00';
     fromAmpm.value = 'AM';
+    
+    // Default mode: Duration with 50 hours
+    toMode.value = 'duration';
+    switchToMode('duration');
+    toDurationHours.value = '50';
+    toDurationMins.value = '0';
+    
+    // Calculate initial results
+    calculateDistance();
 }
 
 /**
@@ -474,30 +487,30 @@ function calculateDistance() {
                 // Top row: Arrival and Duration (Distance is always first)
                 arrivalHtml = `
                     <div class="result-item">
+                        <div class="label">Arrival</div>
                         <div class="value">${arrivalStr}</div>
-                        <div class="label">arrival</div>
                     </div>
                 `;
                 
                 durationHtml = `
                     <div class="result-item">
+                        <div class="label">Duration</div>
                         <div class="value">${elapsed}</div>
-                        <div class="label">duration</div>
                     </div>
                 `;
                 
                 // Bottom row: Speed and Pace (half-width each)
                 speedHtml = `
                     <div class="result-item half-width">
+                        <div class="label">MPH</div>
                         <div class="value">${speed.toFixed(1)}</div>
-                        <div class="label">mph</div>
                     </div>
                 `;
                 
                 paceHtml = `
                     <div class="result-item half-width">
+                        <div class="label">Pace</div>
                         <div class="value">${pace}</div>
-                        <div class="label">pace</div>
                     </div>
                 `;
             }
@@ -511,8 +524,8 @@ function calculateDistance() {
     if (hasTimeData) {
         gridContent = `
             <div class="result-item">
+                <div class="label">Miles</div>
                 <div class="value">${formattedDistance}</div>
-                <div class="label">miles</div>
             </div>
             ${arrivalHtml}
             ${durationHtml}
@@ -522,8 +535,8 @@ function calculateDistance() {
     } else {
         gridContent = `
             <div class="result-item distance-only">
+                <div class="label">Miles</div>
                 <div class="value">${formattedDistance}</div>
-                <div class="label">miles</div>
             </div>
         `;
     }
@@ -591,5 +604,5 @@ toDurationMins.addEventListener('input', handleChange);
 populateDropdowns();
 const hadSavedData = loadFromLocalStorage();
 if (!hadSavedData) {
-    setDefaultFromValues();
+    setDefaultValues();
 }

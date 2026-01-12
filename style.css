@@ -384,7 +384,7 @@ option {
     color: var(--text-muted);
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    margin-top: 0.2rem;
+    margin-bottom: 0.2rem;
 }
 
 /* Bottom row items span 3 columns each (2 items per row) */
@@ -536,7 +536,7 @@ footer a:hover {
     
     .result-item .label {
         font-size: 0.7rem;
-        margin-top: 0.3rem;
+        margin-bottom: 0.3rem;
     }
     
     .result-locations {
