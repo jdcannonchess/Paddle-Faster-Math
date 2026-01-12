@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MR340 Distance Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main>
+        <header>
+            <h1>MR340 Distance Calculator</h1>
+        </header>
+
+        <section class="calculator card">
+            <div class="select-group">
+                <label for="from-location">From</label>
+                <select id="from-location">
+                    <option value="">Select starting point</option>
+                </select>
+                <div class="time-input">
+                    <label>Date & Time (optional)</label>
+                    <div class="datetime-fields">
+                        <input type="date" id="from-date">
+                        <div class="time-fields">
+                            <input type="number" id="from-hour" min="1" max="12" placeholder="HH">
+                            <span class="time-separator">:</span>
+                            <input type="number" id="from-minute" min="0" max="59" placeholder="MM">
+                            <select id="from-ampm">
+                                <option value="AM">AM</option>
+                                <option value="PM">PM</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="select-group">
+                <label for="to-location">To</label>
+                <select id="to-location">
+                    <option value="">Select destination</option>
+                </select>
+                <div class="time-input">
+                    <div class="input-mode-row">
+                        <label>Calculate by</label>
+                        <select id="to-mode">
+                            <option value="datetime">Date & Time</option>
+                            <option value="speed">Speed</option>
+                            <option value="pace">Pace</option>
+                            <option value="duration">Duration</option>
+                        </select>
+                    </div>
+                    <!-- Date & Time inputs -->
+                    <div id="to-datetime-inputs" class="mode-inputs">
+                        <div class="datetime-fields">
+                            <input type="date" id="to-date">
+                            <div class="time-fields">
+                                <input type="number" id="to-hour" min="1" max="12" placeholder="HH">
+                                <span class="time-separator">:</span>
+                                <input type="number" id="to-minute" min="0" max="59" placeholder="MM">
+                                <select id="to-ampm">
+                                    <option value="AM">AM</option>
+                                    <option value="PM">PM</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Speed input -->
+                    <div id="to-speed-inputs" class="mode-inputs hidden">
+                        <div class="single-input-row">
+                            <input type="number" id="to-speed" placeholder="5.0" step="0.1" min="0">
+                            <span class="input-unit">mph</span>
+                        </div>
+                    </div>
+                    <!-- Pace inputs -->
+                    <div id="to-pace-inputs" class="mode-inputs hidden">
+                        <div class="pace-input-row">
+                            <input type="number" id="to-pace-min" placeholder="12" min="0">
+                            <span class="time-separator">:</span>
+                            <input type="number" id="to-pace-sec" placeholder="00" min="0" max="59">
+                            <span class="input-unit">/mi</span>
+                        </div>
+                    </div>
+                    <!-- Duration inputs -->
+                    <div id="to-duration-inputs" class="mode-inputs hidden">
+                        <div class="duration-input-row">
+                            <input type="number" id="to-duration-hours" placeholder="0" min="0">
+                            <span class="input-unit">h</span>
+                            <input type="number" id="to-duration-mins" placeholder="0" min="0" max="59">
+                            <span class="input-unit">m</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="result card" id="result" aria-live="polite">
+            <!-- Result displays here -->
+        </section>
+
+        <footer>
+            <a href="https://mr340.org/resources/ramps/" target="_blank" rel="noopener">MR340 ramps data</a>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
